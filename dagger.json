@@ -1,0 +1,6 @@
+{
+  "name": "dagger-puppeteer",
+  "sdk": "typescript",
+  "source": "example",
+  "engineVersion": "v0.13.5"
+}
