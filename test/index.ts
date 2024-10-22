@@ -1,4 +1,4 @@
-import puppeteer from "npm:puppeteer";
+import puppeteer from "$puppeteer";
 try {
     console.log("Launching Puppeteer...");
     const browser = await puppeteer.launch({
