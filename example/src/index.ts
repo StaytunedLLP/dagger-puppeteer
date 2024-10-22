@@ -72,12 +72,11 @@ class DaggerPuppeteer {
         "curl -fsSL https://deno.land/x/install/install.sh | sh",
       ]).withEnvVariable("PUPPETEER_SKIP_CHROMIUM_DOWNLOAD", "true")
       .withEnvVariable("DENO_INSTALL", "/config/.deno")
-      // .withEnvVariable("PATH", "/config/.deno/bin:$PATH")
       .terminal()
       .withExec([
         "sh",
         "-c",
-        `/config/.deno/bin/deno run --allow-read="/config/.cache/node_modules,/config/.cache/deno/node_modules" --allow-env --allow-write --allow-run="/usr/bin/chromium" --allow-net /test/index.ts`,
+        `/config/.deno/bin/deno run --allow-read --allow-env --allow-write --allow-run="/usr/bin/chromium" --allow-net --allow-sys /test/index.ts`,
       ])
       .stdout();
   }
