@@ -28,7 +28,7 @@ class DaggerPuppeteer {
   async runPuppeteerScript(
     @argument({ defaultPath: "/test" }) source: Directory,
   ): Promise<void> {
-    dag
+    const container = dag
       .container()
       .from("linuxserver/chromium:latest")
       .withDirectory("/test", source)
@@ -47,15 +47,14 @@ class DaggerPuppeteer {
       .withExec([
         "sh",
         "-c",
-        "curl -fsSL https://deno.land/x/install/install.sh | sh -s -- 2.0.0",
+        "curl -fsSL https://deno.land/x/install/install.sh | sh",
       ]).withEnvVariable("PUPPETEER_SKIP_CHROMIUM_DOWNLOAD", "true")
       .withEnvVariable("DENO_INSTALL", "/config/.deno")
-      .terminal()
-      .withExec([
-        "sh",
-        "-c",
-        `/config/.deno/bin/deno run --allow-read --allow-env --allow-write --allow-run --allow-net --allow-sys /test/index.ts`,
+      .withEntrypoint(["sh", "-c"])
+      .withDefaultArgs([
+        "/config/.deno/bin/deno run --allow-read --allow-env --allow-write --allow-run --allow-net --allow-sys /test/index.ts"
       ])
-      .stdout();
+      .terminal()
+    console.log("Container response ", await container.stdout());
   }
 }
