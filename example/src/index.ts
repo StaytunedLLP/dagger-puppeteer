@@ -47,14 +47,14 @@ class DaggerPuppeteer {
       .withExec([
         "sh",
         "-c",
-        "curl -fsSL https://deno.land/x/install/install.sh | sh",
+        "curl -fsSL https://deno.land/x/install/install.sh | sh -s -- 2.0.0",
       ]).withEnvVariable("PUPPETEER_SKIP_CHROMIUM_DOWNLOAD", "true")
       .withEnvVariable("DENO_INSTALL", "/config/.deno")
       .terminal()
       .withExec([
         "sh",
         "-c",
-        `/config/.deno/bin/deno run --allow-read --allow-env --allow-write --allow-run="/usr/bin/chromium" --allow-net --allow-sys /test/index.ts`,
+        `/config/.deno/bin/deno run --allow-read --allow-env --allow-write --allow-run --allow-net --allow-sys /test/index.ts`,
       ])
       .stdout();
   }
