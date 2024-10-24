@@ -50,9 +50,10 @@ class DaggerPuppeteer {
         "curl -fsSL https://deno.land/x/install/install.sh | sh",
       ]).withEnvVariable("PUPPETEER_SKIP_CHROMIUM_DOWNLOAD", "true")
       .withEnvVariable("DENO_INSTALL", "/config/.deno")
-      .withEntrypoint(["sh", "-c"])
       .withDefaultArgs([
-        "/config/.deno/bin/deno run --allow-read --allow-env --allow-write --allow-run --allow-net --allow-sys /test/index.ts"
+        "sh",
+        "-c",
+        "/config/.deno/bin/deno run --allow-read --allow-env --allow-write --allow-run --allow-net --allow-sys --allow-all index.ts"
       ])
       .terminal()
     console.log("Container response ", await container.stdout());
